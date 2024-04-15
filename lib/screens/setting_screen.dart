@@ -19,9 +19,9 @@ class _SettingScreenState extends State<SettingScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Developer: Diva'),
+              Text('Developer: Mera Diva'),
               Text('Version: 1.0.0'),
-              Text('GitHub: https://github.com/diva'),
+              Text('GitHub: https://github.com/diva-coding/flutter_DSNOTE'),
             ],
           ),
           actions: [
