@@ -2,6 +2,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:my_app/models/news.dart';
+import 'package:my_app/models/datas.dart';
+import 'package:my_app/models/customer_service_datas.dart';
 import 'package:my_app/endpoints/endpoints.dart';
 
 class DataService {
@@ -13,6 +15,46 @@ class DataService {
     } else {
       // Handle error
       throw Exception('Failed to load news');
+    }
+  }
+
+  static Future<List<Datas>> fetchDatas() async {
+    final response = await http.get(Uri.parse(Endpoints.datas));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body) as Map<String, dynamic>;
+      return (data['datas'] as List<dynamic>)
+          .map((item) => Datas.fromJson(item as Map<String, dynamic>))
+          .toList();
+    } else {
+      // Handle error
+      throw Exception('Failed to load data');
+    }
+  }
+
+  
+// get customer-service list data
+static Future<List<CustomerServiceDatas>> fetchCustomerServiceDatas() async {
+    final response = await http.get(Uri.parse(Endpoints.customerServiceDatas));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body) as Map<String, dynamic>;
+      return (data['datas'] as List<dynamic>)
+          .map((item) => CustomerServiceDatas.fromJson(item as Map<String, dynamic>))
+          .toList();
+    } else {
+      // Handle error
+      throw Exception('Failed to load data');
+    }
+  }
+
+  // delete a customer-service data
+  static Future<void> deleteCustomerServiceData(int id) async {
+    final response = await http.delete(Uri.parse('${Endpoints.customerServiceDatas}/$id'));
+
+    if (response.statusCode == 200) {
+      // Deletion successful
+      
+    } else {
+      throw Exception('Failed to delete data');
     }
   }
 

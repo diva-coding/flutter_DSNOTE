@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/screens/customer_support/cs_screen.dart';
 import 'package:my_app/screens/home_screen.dart';
 import 'package:my_app/screens/api_screen.dart';
+import 'package:my_app/screens/datas_screen.dart';
 //import 'package:my_app/screens/splash_screen.dart';
 import 'package:my_app/screens/setting_screen.dart';
 import 'package:my_app/screens/folder_screen.dart';
 //import 'package:my_app/utils/themes.dart';
+import 'package:my_app/screens/FormScreen/form_screen.dart';
+import 'package:my_app/screens/customer_support/cs_detail_screen.dart';
+import 'package:my_app/screens/customer_support/form_create_screen.dart';
+import 'package:my_app/screens/customer_support/form_update_screen.dart';
+import 'package:my_app/models/customer_service_datas.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,8 +35,16 @@ class MyApp extends StatelessWidget {
         '/folder-screen': (context) => const FolderScreen(),
         '/setting-screen': (context) => const SettingScreen(),
         '/api':(context) => const APIScreen(),
+        '/form-screen':(context) => const FormScreen(),
+        '/cs-screen':(context) => const CustomerSupportScreen(),
+        '/datas-screen':(context) => const DatasScreen(),
+        '/cs-detail-screen': (context) => const CustomerSupportDetailScreen(),
+        '/form-create-screen': (context) => const CustomerSupportCreateFormScreen(),
+        '/form-update-screen': (context) => CustomerSupportUpdateFormScreen(
+            dataToUpdate: ModalRoute.of(context)!.settings.arguments as CustomerServiceDatas,
+          ),
       },
-      initialRoute: '/',
+      initialRoute: '/cs-screen',
     );
   }
 }
@@ -51,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
     const FolderScreen(),
     const SettingScreen(),
     const APIScreen(),
+    const DatasScreen(),
   ];
 
   final List<String> _appBarTitles = const [
@@ -143,12 +159,33 @@ class _MyHomePageState extends State<MyHomePage> {
             const Divider(),
             ListTile(
               leading: const Icon(Icons.api),
-              title: const Text('Latihan API'),
+              title: const Text('News Screen'),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const APIScreen()),
                 );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.api),
+              title: const Text('Datas Screen'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const DatasScreen()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.support_agent),
+              title: const Text('Customer Support'),
+              onTap: () {
+                /* Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const DatasScreen()),
+                ); */
+                Navigator.pushNamed(context, '/cs-screen');
               },
             )
           ],
